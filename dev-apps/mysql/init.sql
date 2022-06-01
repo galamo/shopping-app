@@ -11,3 +11,5 @@ CREATE TABLE `shopping-app`.`users` (
   `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`));
 
+
+INSERT INTO `shopping-app`.`users` (`user_name`, `first_name`, `last_name`, `password`) VALUES ('ziv@ziv.com', 'ziv', 'ziva', '123456');
