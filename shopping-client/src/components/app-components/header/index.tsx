@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -42,7 +42,15 @@ export type RouteConfig = typeof routingConfiguration[0];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
-  const { fontSize } = useAppSelector((state) => state.settings);
+  const fontSize = useAppSelector((state) => state.settings.fontSize);
+  const numberOfOperations = useAppSelector(
+    (state) => state.settings.numberOfOperations
+  );
+
+  const calc = useMemo(
+    () => longCalculation(numberOfOperations),
+    [numberOfOperations]
+  );
   console.log("Header is Render");
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -86,7 +94,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            LOGO {calc}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -175,4 +183,10 @@ const Header = () => {
     </AppBar>
   );
 };
+
+function longCalculation(num: number) {
+  console.log("long calculation");
+  return num * 9999;
+}
+
 export default Header;
