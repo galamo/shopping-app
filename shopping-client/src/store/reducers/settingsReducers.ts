@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface SettingsState {
   backgroundColor: string;
+  fontSize: string;
 }
 
 const initialState: SettingsState = {
   backgroundColor: "red",
+  fontSize: "15px",
 };
 
 export const settingsSlice = createSlice({
@@ -12,11 +14,13 @@ export const settingsSlice = createSlice({
   initialState,
   reducers: {
     setBgColor: (state: SettingsState, action: PayloadAction<string>) => {
-      console.log("setColor!!");
       state.backgroundColor = action.payload;
+    },
+    setFontSize: (state: SettingsState, action: PayloadAction<string>) => {
+      state.fontSize = action.payload;
     },
   },
 });
 
-export const { setBgColor } = settingsSlice.actions;
+export const { setBgColor, setFontSize } = settingsSlice.actions;
 export default settingsSlice.reducer;

@@ -14,6 +14,7 @@ import HomePage from "../../pages/homePage";
 import AboutPage from "../../pages/aboutPage";
 import SettingsPage from "../../pages/settingsPage";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../store/hooks";
 
 export const routingConfiguration = [
   {
@@ -38,10 +39,11 @@ export const routingConfiguration = [
 
 export type RouteConfig = typeof routingConfiguration[0];
 
-const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
+  const { fontSize } = useAppSelector((state) => state.settings);
+  console.log("Header is Render");
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -74,6 +76,7 @@ const Header = () => {
             component="a"
             href="/"
             sx={{
+              fontSize: fontSize,
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
@@ -122,24 +125,7 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {routingConfiguration.map((route: RouteConfig) => (
               <Button key={route.key}>
