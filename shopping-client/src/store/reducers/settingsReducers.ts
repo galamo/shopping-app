@@ -21,7 +21,6 @@ export const settingsSlice = createSlice({
     },
     setFontSize: (state: SettingsState, action: PayloadAction<string>) => {
       state.fontSize = action.payload;
-      //   state.numberOfOperations++;
     },
   },
 });

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,7 @@ import AboutPage from "../../pages/aboutPage";
 import SettingsPage from "../../pages/settingsPage";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../../store/hooks";
+import ProductsPage from "../../pages/productsPage";
 
 export const routingConfiguration = [
   {
@@ -35,6 +36,12 @@ export const routingConfiguration = [
     label: "Settings",
     element: <SettingsPage />,
   },
+  {
+    key: "prodcuts",
+    path: "/prodcuts",
+    label: "Prodcuts",
+    element: <ProductsPage />,
+  },
 ];
 
 export type RouteConfig = typeof routingConfiguration[0];
@@ -51,6 +58,7 @@ const Header = () => {
     () => longCalculation(numberOfOperations),
     [numberOfOperations]
   );
+
   console.log("Header is Render");
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -59,12 +67,19 @@ const Header = () => {
     null
   );
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const handleOpenNavMenu = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorElNav(event.currentTarget);
+    },
+    [anchorElNav]
+  );
+
+  const handleOpenUserMenu = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorElUser(event.currentTarget);
+    },
+    [anchorElUser]
+  );
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -183,7 +198,6 @@ const Header = () => {
     </AppBar>
   );
 };
-
 function longCalculation(num: number) {
   console.log("long calculation");
   return num * 9999;
